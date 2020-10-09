@@ -1,5 +1,7 @@
+import data from '../data.json'
 export default () => {
-  return Promise.resolve({
-    data: 'hello world'
+  console.log(data)
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(data), 2000)
   })
 }
