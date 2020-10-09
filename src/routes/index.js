@@ -11,26 +11,17 @@ import Tweet from '../pages/tweet'
 export default function Routes () {
   return (
     <Router>
-      <div>
-        <ul>
-          <li>
-            <Link to='/route/explore'>App</Link>
-          </li>
-        </ul>
-
-        <hr />
-        <Switch>
-          <Route exact path='/'>
-            <Explore />
-          </Route>
-          <Route exact path='/route/explore'>
-            <Explore />
-          </Route>
-          <Route exact path='/route/tweet/:id'>
-            <Tweet />
-          </Route>
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path='/'>
+          <Explore />
+        </Route>
+        <Route exact path='/explore'>
+          <Explore />
+        </Route>
+        <Route exact path='/tweet/:id'>
+          <Tweet />
+        </Route>
+      </Switch>
     </Router>
   )
 }
