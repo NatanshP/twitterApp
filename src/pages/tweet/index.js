@@ -1,7 +1,5 @@
 import React from 'react'
 import logo from '../../logo.svg'
-import '../../App.css'
-
 export default function Tweet () {
   return (
     <div className='App'>

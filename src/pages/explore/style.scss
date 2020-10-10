@@ -2,12 +2,31 @@
   display: flex;
   // width: 980px;
   // margin: 0 auto;
- .left-column, .right-column {
+ .layout-left-column, .layout-right-column {
   flex-grow: 1;
-  background-color: lemonchiffon;
+  // background-color: lemonchiffon;
  }
- .middle-column { 
+ .layout-middle-column { 
    width: 600px;
-   background-color: yellow;
+  //  background-color: yellow;
+ }
+ .header-home {
+  border-left: 1px solid #38444d;
+  border-right: 1px solid #38444d;
+  border-bottom: 1px solid #38444d;
+  height: 54px;
+  color: #fff;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  background-color: #15212B;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 19px;
+ }
+ .infinite-list-cont {
+   margin-top: 54px;
+
  }
 }

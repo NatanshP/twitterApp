@@ -38,7 +38,7 @@ export default function InfiniteList (props) {
   })
   if (hasMorePages) {
     content.push(
-      <div ref={loaderRef}>
+      <div ref={loaderRef} key='loader'>
         <div>loading...</div>
       </div>
     )

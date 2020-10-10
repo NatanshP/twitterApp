@@ -3,6 +3,7 @@ import pageWrapper from '../../pageWrapper'
 import getData from '../../actions/explore'
 import useStore from '../../customHooks/useStore'
 import InfiniteList from '../../components/infiniteList'
+import Tweet from '../../components/tweet'
 import './style.scss'
 
 function Explore ({ dataFetched }) {
@@ -19,16 +20,15 @@ function Explore ({ dataFetched }) {
 
   return (
     <div className='page-cont'>
-      <div className='left-column'>left</div>
-      <div className='middle-column'>
+      <div className='layout-left-column'>left</div>
+      <div className='layout-middle-column'>
+        <div className='header-home'>Home</div>
         <InfiniteList
-          list={list} hasMorePages={hasMorePages} page={page} component={() => {
-            return <div>test div</div>
-          }}
+          list={list} hasMorePages={hasMorePages} page={page} component={Tweet}
           loadMore={getData}
         />
       </div>
-      <div className='right-column'>right</div>
+      <div className='layout-right-column'>right</div>
     </div>
   )
 }
