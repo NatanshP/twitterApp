@@ -134,12 +134,22 @@ export const mock = (data, delay = 300) => {
   })
 }
 
-export const getDataByPage = (page, size) => {
-  let result
+export const getDataByPage = (page, size = 10) => {
+  let list
   if ((page - 1) * 10 + size + 1 > data.length) {
-    result = []
+    list = []
   } else {
-    result = data.slice((page - 1) * 10, size)
+    list = data.slice((page - 1) * 10, (page - 1) * 10 + size)
+  }
+  const lastIndex = (page - 1) * 10 + size
+  let hasMore = true
+  if (lastIndex >= data.length - 1) {
+    hasMore = false
+  }
+  const result = {
+    list,
+    page,
+    hasMorePages: hasMore
   }
   return mock(result)
 }

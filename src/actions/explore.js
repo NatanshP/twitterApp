@@ -1,7 +1,10 @@
-import data from '../data.json'
-export default () => {
-  console.log(data)
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(data), 2000)
+import { getDataByPage } from '../apis'
+export default (page = 1) => (dispatch) => {
+  return getDataByPage(page).then(dta => {
+    dispatch({
+      type: 'ADD_EXPLORE_DATA',
+      payload: dta
+    })
+    return dta
   })
 }

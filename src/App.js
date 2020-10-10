@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useReducer } from 'react'
 import './App.css'
-import Routes from './Routes'
+import Routes from './routes'
+import { StoreContext, reducer, modifyDispatch } from './store'
 
 export default function App () {
+  const [store, dispatch] = useReducer(reducer, {}, reducer)
+  const newDispatcher = modifyDispatch(dispatch, store)
   return (
-    <div className='App'>
+    <StoreContext.Provider value={[store, newDispatcher]}>
       <Routes />
-    </div>
+    </StoreContext.Provider>
   )
 }

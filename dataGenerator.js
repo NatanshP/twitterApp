@@ -1,6 +1,5 @@
 const faker = require('faker')
 const fs = require('fs')
-// console.log('hsd fdsk flj ')
 const {
   name: {
     firstName,
@@ -23,23 +22,7 @@ const {
   },
   date
 } = faker
-// const firstName = faker.name.firstName()
-// const lastName = faker.name.lastName()
-// const userName = faker.name.userName()
 
-// const jobTitle = faker.name.jobTitle()
-// const prefix = faker.name.prefix()
-// const suffix = faker.name.suffix()
-// const jobArea = faker.name.jobArea()
-
-// const phone = faker.phone.phoneNumber()
-
-// console.log(`${firstName} ${lastName}`)
-// console.log(`Job title: ${jobTitle}`)
-// console.log(`Job area: ${jobArea}`)
-// console.log(`Phone: ${phone}`)
-
-console.log(JSON.stringify(date))
 const hashTagList = () => {
   const hashTag = []
   for (let i = 0; i < 10; i++) {
@@ -81,8 +64,9 @@ const getMessage = () => {
   return message.trim()
 }
 
-const generateComment = (minDate) => {
+const generateComment = (minDate, base, startId) => {
   return {
+    id: base * 1000 + startId + 1,
     author: getAuthor(),
     message: `${getMessage()}`,
     likes: num(1000),
@@ -91,13 +75,14 @@ const generateComment = (minDate) => {
   }
 }
 
-const generateTweetData = () => {
+const generateTweetData = (startId) => {
   const comments = []
   const dt = past()
   for (let i = 0; i <= Math.floor(Math.random() * 10); i++) {
-    comments.push(generateComment(dt))
+    comments.push(generateComment(dt, startId + 1, i))
   }
   return {
+    id: startId + 1, // startId start from 0
     author: getAuthor(),
     timestamp: `${dt}`,
     message: getMessage(),
@@ -107,10 +92,9 @@ const generateTweetData = () => {
   }
 }
 
-// console.log(generateTweetData())
 const dataObj = []
 for (let i = 0; i < 200; i++) {
-  dataObj.push(generateTweetData())
+  dataObj.push(generateTweetData(i))
 }
 
 fs.writeFileSync('data.json', JSON.stringify(dataObj, null, '\t'))
