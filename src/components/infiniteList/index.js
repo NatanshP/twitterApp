@@ -30,8 +30,10 @@ export default function InfiniteList (props) {
       handleObserver,
       options
     )
-    observer.observe(loaderRef.current)
-  }, [loaderRef, handleObserver])
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current)
+    }
+  }, [loaderRef.current, handleObserver])
 
   const content = list.map((item, index) => {
     return <Component key={item.id} {...item} />

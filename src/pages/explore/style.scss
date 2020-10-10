@@ -1,15 +1,4 @@
-.page-cont {
-  display: flex;
-  // width: 980px;
-  // margin: 0 auto;
- .layout-left-column, .layout-right-column {
-  flex-grow: 1;
-  // background-color: lemonchiffon;
- }
- .layout-middle-column { 
-   width: 600px;
-  //  background-color: yellow;
- }
+.explore {
  .header-home {
   border-left: 1px solid #38444d;
   border-right: 1px solid #38444d;
@@ -27,6 +16,44 @@
  }
  .infinite-list-cont {
    margin-top: 54px;
-
+ }
+ .right-col {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 700;
+  font-size: 19px;
+  width: 350px;
+  margin: 10px 0 0 20px;
+  .sw-cont-heading {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    height: 44px;
+    border-bottom: 1px solid #38444d;
+  }
+  .window-switch-cont {
+    border-radius: 20px;
+    margin-top: 20px;
+    background-color: #192834;
+    color: white;
+    width: 100%;
+  }
+  .search-cont { 
+    width: 100%;
+  }
+  .window-switch {
+    border-bottom: 1px solid #38444d;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.03)
+    }
+    &:last-of-type {
+      border-bottom: none;
+    }
+    padding: 15px;
+    cursor: pointer;
+  }
  }
 }

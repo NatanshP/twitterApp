@@ -117,6 +117,21 @@ import data from '../data.json'
 //   }
 // ]
 
+const uniqueWords = () => {
+  const words = new Set()
+  data.forEach(({ message, comments }) => {
+    message.toLocaleLowerCase().split(' ').forEach((word) => {
+      words.add(word)
+    })
+    comments.forEach(({ message }) => message.toLocaleLowerCase().split(' ').forEach((word) => {
+      words.add(word)
+    }))
+  })
+  return [...words]
+}
+
+const words = uniqueWords()
+
 const sortByTime = (data) => {
   data.sort((a, b) => {
     const aDate = new Date(a.timestamp)
@@ -134,9 +149,9 @@ export const mock = (data, delay = 300) => {
   })
 }
 
-export const getDataByPage = (page, size = 10) => {
+export const getDataByPage = (data, delay) => (page, size = 10) => {
   let list
-  if ((page - 1) * 10 + size + 1 > data.length) {
+  if ((page - 1) * 10 + size > data.length) {
     list = []
   } else {
     list = data.slice((page - 1) * 10, (page - 1) * 10 + size)
@@ -151,14 +166,14 @@ export const getDataByPage = (page, size = 10) => {
     page,
     hasMorePages: hasMore
   }
-  return mock(result)
+  return mock(result, delay)
 }
 
 export const getDataByQueryString = (queryString, includeComments) => {
   let clean = queryString.replace(/[,/%^;:=`~]/g, '')
   clean = clean.replace(/\s{2,}/g, ' ')
   const searchStringArr = clean.split(' ')
-  const searchStringPresent = (message) => searchStringArr.some((queryString) => message && message.includes(queryString))
+  const searchStringPresent = (message) => searchStringArr.some((queryString) => message && message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase()))
   const result = data.reduce((acc, dta) => {
     const {
       message = '',
@@ -176,22 +191,55 @@ export const getDataByQueryString = (queryString, includeComments) => {
 
 export const getTrends = () => {
   const trends = new Set([])
-  const search = (message = '') => (message.match(/#\w+/g) || []).forEach(item => trends.add(item))
+  const result = []
+  const search = (message = '') => (message.match(/#\w+/g) || []).forEach(item => {
+    if (!trends.has(item)) {
+      trends.add(item)
+      result.push({ value: item, id: item })
+    }
+  })
   data.forEach(({ message, comments = [] }) => {
     search(message)
     comments.forEach(({ message }) => search(message))
   })
-  return mock([...trends], 1000)
+  return { result, trendsList: [...trends] }
 }
 
 export const getUniqueUsers = () => {
   const users = new Set([])
-  const addUser = (name = '') => users.add(name)
-  const extract = ({ author: { username } }) => addUser(username)
+  const result = []
+  const addUser = (name = '', author) => {
+    if (!users.has(name)) {
+      users.add(name)
+      result.push({ ...author, id: name })
+    }
+  }
+  const extract = ({ author: { username }, author }) => addUser(username, author)
   data.forEach((dta) => {
     extract(dta)
     const { comments } = dta
     comments.forEach(extract)
   })
-  return mock([...users], 1000)
+  return result
+}
+
+console.log('unique users', getUniqueUsers())
+
+export const getTweetsData = getDataByPage(data)
+export const trendsApi = getDataByPage(getTrends().result)
+export const peopleApi = getDataByPage(getUniqueUsers())
+export const typeHeadApi = (searchString) => {
+  const result = []
+  if (searchString.length < 3) {
+    return result
+  }
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].includes(searchString)) {
+      result.push(words[i])
+    }
+    if (result.length >= 6) {
+      return result
+    }
+  }
+  return result
 }

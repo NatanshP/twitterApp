@@ -12,7 +12,6 @@ const insertProps = (to) => {
 }
 
 export default function Tweet (props) {
-  console.log(props)
   const {
     author: {
       name,
@@ -37,7 +36,7 @@ export default function Tweet (props) {
           <div className='name'>{name}</div>
           <div className='username'>{username}</div>
           <div className='time'>
-            {moment(timestamp).fromNow()}
+            {moment(new Date(timestamp).toISOString()).fromNow()}
           </div>
         </div>
         <div className='msg-cont'>{processMsg(message, Link, insertProps)}</div>

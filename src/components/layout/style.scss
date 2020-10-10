@@ -1,0 +1,9 @@
+.page-cont {
+  display: flex;
+ .layout-left-column, .layout-right-column {
+  flex-grow: 1;
+ }
+ .layout-middle-column { 
+   width: 600px;
+ }
+}
