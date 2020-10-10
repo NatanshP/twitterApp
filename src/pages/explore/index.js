@@ -31,10 +31,10 @@ function Explore ({ dataFetched }) {
   const ComponentMap = { tweets: Tweet, trends: Trend, people: People }
   const fetchData = getDataMap[currentView]
   const Component = ComponentMap[currentView]
-  // useEffect(() => {
-  //   dispatch(getTrendsData())
-  //   dispatch(getPeopleData())
-  // }, [])
+  useEffect(() => {
+    dispatch(getTrendsData())
+    dispatch(getPeopleData())
+  }, [])
   if (!dataFetched) {
     return <div>Loading .....</div>
   }
