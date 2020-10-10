@@ -80,10 +80,18 @@ function Explore ({ dataFetched }) {
     </div>
   )
 
+  const leftCol = () => (
+    <div className='left-col'>
+      <div className='icon-cont'>
+        <div className='icon-twitter' />
+      </div>
+    </div>
+  )
+
   return (
     <div className='explore'>
       <Layout
-        leftCol={<div>LEft</div>}
+        leftCol={leftCol()}
         middleCol={middleCol()}
         rightCol={rightCol()}
       />

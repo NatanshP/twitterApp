@@ -63,4 +63,16 @@
     justify-content: space-between;
     margin-top: 10px;
   }
+  .btn {
+    &:hover {
+      color: rgb(27, 149, 224);
+    }
+  }
+  .icon {
+    font-size: 18px;
+    margin-right: 4px;
+    vertical-align: bottom;
+    
+  }
+
 }

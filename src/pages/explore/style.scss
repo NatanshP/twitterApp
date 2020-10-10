@@ -1,4 +1,5 @@
 .explore {
+  display: flex;
  .header-home {
   border-left: 1px solid #38444d;
   border-right: 1px solid #38444d;
@@ -19,14 +20,14 @@
  }
  .right-col {
   position: sticky;
-  top: 0;
+  top: 10px;
   display: flex;
   align-items: center;
   flex-direction: column;
   font-weight: 700;
   font-size: 19px;
   width: 350px;
-  margin: 10px 0 0 20px;
+  margin: 0 0 0 20px;
   .sw-cont-heading {
     display: flex;
     align-items: center;
@@ -55,5 +56,17 @@
     padding: 15px;
     cursor: pointer;
   }
+ }
+ .left-col {
+   color: white;
+   position: sticky;
+   top: 10px;
+   .icon-cont {
+     height: 44px;
+     align-items: center;
+   }
+   .icon-twitter {
+    font-size: 33px;
+   }
  }
 }

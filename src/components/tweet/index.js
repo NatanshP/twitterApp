@@ -41,9 +41,10 @@ export default function Tweet (props) {
         </div>
         <div className='msg-cont'>{processMsg(message, Link, insertProps)}</div>
         <div className='action-buttons'>
-          <div className='comment'>Comments . {abbreviateNumber(comments.length)}</div>
-          <div className='retweet'>Retweet . {abbreviateNumber(retweets)} </div>
-          <div className='like'>Like . {abbreviateNumber(likes)} </div>
+          <div className='comment btn'><i className='icon icon-chat' />{abbreviateNumber(comments.length)}</div>
+          <div className='retweet btn'><i className='icon icon-retweet-1' />{abbreviateNumber(retweets)} </div>
+          <div className='like btn'><i className='icon icon-heart' /> {abbreviateNumber(likes)} </div>
+          <div />
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react'
 import './App.scss'
+import './style.scss'
 import Routes from './routes'
 import { StoreContext, reducer, modifyDispatch } from './store'
 

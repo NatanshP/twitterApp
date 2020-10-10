@@ -1,7 +1,11 @@
 .page-cont {
   display: flex;
- .layout-left-column, .layout-right-column {
-  flex-grow: 1;
+  margin: 0 auto;
+ .layout-left-column {
+  width: 255px;
+ }
+ .layout-right-column {
+  width: 370px;
  }
  .layout-middle-column { 
    width: 600px;
