@@ -264,7 +264,7 @@ export const getTweetById = (id) => {
   return mock(result, 400)
 }
 
-export const getTweetsData = getDataByPage(data)
+export const getTweetsData = getDataByPage(data) // function that when called gives data in paginated form
 export const trendsApi = getDataByPage(getTrends().result)
 export const peopleApi = getDataByPage(getUniqueUsers())
 export const typeHeadApi = (searchString) => {
@@ -283,7 +283,7 @@ export const typeHeadApi = (searchString) => {
   return result
 }
 
-export const searchApi = (queryString) => {
+export const searchApi = (queryString) => { // function to get query string
   const dta = getDataByQueryString(decodeURIComponent(queryString))
   return getDataByPage(dta)
 }
