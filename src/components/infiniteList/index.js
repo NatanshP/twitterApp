@@ -14,11 +14,11 @@ export default function InfiniteList (props) {
   }, [])
   useEffect(() => {
     if (hasMorePages) {
-      dispatch(loadMore(page + 1)).then(() => {
+      dispatch(loadMore(page + 1)).then(() => { // pages in dependencies will trigger infinite reload
         setLoading(false)
       })
     }
-  }, [hasMorePages, loading])
+  }, [hasMorePages, loading, loadMore])
 
   useEffect(() => {
     const options = {

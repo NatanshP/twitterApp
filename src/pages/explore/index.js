@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import pageWrapper from '../../pageWrapper'
 import { getTweetsData as getData, getTrendsData, getPeopleData } from '../../actions/explore'
 import useStore from '../../customHooks/useStore'
@@ -24,7 +24,7 @@ function Explore ({ dataFetched, history }) {
 
   const getDataMap = { tweets: getData, trends: getTrendsData, people: getPeopleData }
   const ComponentMap = { tweets: Tweet, trends: Trend, people: People }
-  const fetchData = getDataMap[currentView]
+  const fetchData = useCallback(getDataMap[currentView], [])
   const Component = ComponentMap[currentView]
   useEffect(() => {
     dispatch(getTrendsData())
