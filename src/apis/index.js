@@ -119,15 +119,15 @@ import data from '../data.json'
 
 const uniqueWords = () => {
   const words = new Set()
-  const regex = new RegExp('[.,/#!$%^&*;:{}=-_`~()]')
+  const regex = new RegExp('[.,/#!$%^&*;:{}=-_`~()]') // punctuation marks
   data.forEach(({ message, comments }) => {
-    message.toLocaleLowerCase().split(' ').forEach((word) => {
-      if (regex.test(word[word.length - 1])) {
+    message.toLocaleLowerCase().split(' ').forEach((word) => { // split msg at space
+      if (regex.test(word[word.length - 1])) { // if last char is punctuation remove last char
         word = word.substring(0, word.length - 1)
       }
       words.add(word)
     })
-    comments.forEach(({ message }) => message.toLocaleLowerCase().split(' ').forEach((word) => {
+    comments.forEach(({ message }) => message.toLocaleLowerCase().split(' ').forEach((word) => { // same as above for comments
       if (regex.test(word[word.length - 1])) {
         word = word.substring(0, word.length - 1)
       }
@@ -148,14 +148,17 @@ const sortByTime = (data) => {
 }
 sortByTime(data)
 
-export const mock = (data, delay = 300) => {
+export const mock = (data, delay = 300) => { // returns the result as promise
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(data)
     }, delay)
   })
 }
-
+/**
+ * @param {array} data data to paginate
+ * @param {num} delay delay in the mock function default 300 ms
+ */
 export const getDataByPage = (data, delay) => (page, size = 10) => {
   let list
   if ((page - 1) * size + size > data.length) {
@@ -176,6 +179,7 @@ export const getDataByPage = (data, delay) => (page, size = 10) => {
   return mock(result, delay)
 }
 
+// get instances of tweets with search string or a letter from search string
 export const getDataByQueryString = (queryString, includeComments) => {
   if (!queryString) {
     return data
@@ -208,6 +212,7 @@ export const getDataByQueryString = (queryString, includeComments) => {
   return result
 }
 
+// get list of all unique hashtags
 export const getTrends = () => {
   const trends = new Set([])
   const result = []
@@ -223,7 +228,7 @@ export const getTrends = () => {
   })
   return { result, trendsList: [...trends] }
 }
-
+// get list of unique users
 export const getUniqueUsers = () => {
   const users = new Set([])
   const result = []
@@ -241,7 +246,7 @@ export const getUniqueUsers = () => {
   })
   return result
 }
-
+// get a particular tweet
 export const getTweetById = (id) => {
   id = parseInt(id, 10)
   let result
