@@ -9,8 +9,9 @@ import Trend from '../../components/trend'
 import Layout from '../../components/layout'
 import LeftColumn from '../../components/leftColumn'
 import SearchBar from '../../components/searchBar'
+import { Link } from 'react-router-dom'
+import getSearchString from '../../helpers/getSearchString'
 import cs from 'classnames'
-
 import './style.scss'
 
 function Explore ({ dataFetched, history }) {
@@ -21,6 +22,9 @@ function Explore ({ dataFetched, history }) {
       list,
       hasMorePages,
       page
+    },
+    trends: {
+      list: trendsList
     }
   } = store.explore
   console.log(store)
@@ -38,7 +42,14 @@ function Explore ({ dataFetched, history }) {
   }
   const middleCol = (
     <>
-      <div className='header-home'>Home</div>
+      <div className='header-home'>
+        <div className='home-text'>Home</div>
+        <div className='tab-switch-cont'>
+          {['tweets', 'trends', 'people'].map((to) => (
+            <div key={to} className={cs('tab-switch', { highlight: currentView === to })} onClick={() => setCurrentView(to)}>{to.toUpperCase()}</div>
+          ))}
+        </div>
+      </div>
       <InfiniteList
         list={list} hasMorePages={hasMorePages} page={page} component={Component}
         loadMore={fetchData}
@@ -54,8 +65,12 @@ function Explore ({ dataFetched, history }) {
       </div>
       <div className='window-switch-cont'>
         <div className='sw-cont-heading'>What's Happening</div>
-        {['tweets', 'trends', 'people'].map((to) => (
-          <div key={to} className={cs('window-switch', { highlight: currentView === to })} onClick={() => setCurrentView(to)}>{to.toUpperCase()}</div>
+        {trendsList.slice(0, 5).map(({ value, id }) => (
+          <Link key={id} to={getSearchString(value)} className='window-switch'>
+            <div>
+              {value.toUpperCase()}
+            </div>
+          </Link>
         ))}
       </div>
     </div>

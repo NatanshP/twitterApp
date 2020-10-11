@@ -1,19 +1,43 @@
 .explore {
   display: flex;
+  .tab-switch-cont {
+    display: flex;
+    width: 100%;
+  }
+  .home-text {
+    height: 54px;
+    display: flex;
+    align-items: center;
+    font-size: 19px;
+  }
+  .tab-switch {
+    flex-grow: 1;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    &:hover {
+      background-color:rgba(27, 149, 224, 0.3);
+    }
+    &.highlight {
+      color: rgb(27, 149, 224);
+    }
+  }
  .header-home {
   border-left: 1px solid #38444d;
   border-right: 1px solid #38444d;
   border-bottom: 1px solid #38444d;
-  height: 54px;
+  height: 108px;
   color: #fff;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   position: sticky;
   top: 0;
   background-color: #15212B;
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
   font-weight: 700;
-  font-size: 19px;
  }
  .infinite-list-cont {
    margin-top: 54px;
@@ -46,6 +70,7 @@
     width: 100%;
   }
   .window-switch {
+    display: block;
     border-bottom: 1px solid #38444d;
     &:hover {
       background-color: rgba(255, 255, 255, 0.03)

@@ -119,11 +119,18 @@ import data from '../data.json'
 
 const uniqueWords = () => {
   const words = new Set()
+  const regex = new RegExp('[.,/#!$%^&*;:{}=-_`~()]')
   data.forEach(({ message, comments }) => {
     message.toLocaleLowerCase().split(' ').forEach((word) => {
+      if (regex.test(word[word.length - 1])) {
+        word = word.substring(0, word.length - 1)
+      }
       words.add(word)
     })
     comments.forEach(({ message }) => message.toLocaleLowerCase().split(' ').forEach((word) => {
+      if (regex.test(word[word.length - 1])) {
+        word = word.substring(0, word.length - 1)
+      }
       words.add(word)
     }))
   })
@@ -250,7 +257,6 @@ export const getTweetById = (id) => {
       return mock(result, 400)
     }
   }
-  console.log('result', result)
   return mock(result, 400)
 }
 
