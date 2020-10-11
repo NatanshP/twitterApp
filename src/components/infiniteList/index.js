@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import useStore from '../../customHooks/useStore'
 import './style.scss'
 
@@ -7,11 +7,11 @@ export default function InfiniteList (props) {
   const [loading, setLoading] = useState(false)
   const [, dispatch] = useStore()
   const loaderRef = useRef({})
-  const handleObserver = (entities, observer) => {
+  const handleObserver = useCallback((entities, observer) => {
     if (entities && entities[0].isIntersecting && !loading) {
       setLoading(true)
     }
-  }
+  }, [])
   useEffect(() => {
     if (hasMorePages) {
       dispatch(loadMore(page + 1)).then(() => {
@@ -33,7 +33,7 @@ export default function InfiniteList (props) {
     if (loaderRef.current) {
       observer.observe(loaderRef.current)
     }
-  }, [loaderRef.current, handleObserver])
+  }, [handleObserver])
 
   const content = list.map((item, index) => {
     return <Component key={item.id} {...item} />

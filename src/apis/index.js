@@ -176,17 +176,26 @@ export const getDataByQueryString = (queryString, includeComments) => {
   let clean = queryString.replace(/[,/%^;:=`~]/g, '')
   clean = clean.replace(/\s{2,}/g, ' ')
   const searchStringArr = clean.split(' ')
+  const fullStringPresent = (message) => message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase())
   const searchStringPresent = (message) => searchStringArr.some((queryString) => message && message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase()))
   const result = data.reduce((acc, dta) => {
     const {
       message = '',
       comments = []
     } = dta
-
-    if (searchStringPresent(message)) {
+    if (fullStringPresent(message)) {
+      acc.unshift(dta)
+    } else if (searchStringPresent(message)) {
       acc.push(dta)
     }
-    acc = acc.concat(comments.filter(({ message = '' }) => searchStringPresent(message)))
+    acc = acc.concat(comments.filter((comment) => {
+      const { message = '' } = comment
+      if (fullStringPresent(message)) {
+        acc.unshift(comment)
+        return false
+      }
+      return searchStringPresent(message)
+    }))
     return acc
   }, [])
   return result
