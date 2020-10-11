@@ -244,7 +244,6 @@ export const getUniqueUsers = () => {
 
 export const getTweetById = (id) => {
   id = parseInt(id, 10)
-  console.log('id', id)
   let result
   for (let i = 0; i < data.length; i++) {
     let localData = [data[i]]

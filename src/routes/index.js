@@ -8,6 +8,7 @@ import {
 import Explore from '../pages/explore/index'
 import Search from '../pages/search/index'
 import Tweet from '../pages/tweet'
+import NotFound from '../pages/404'
 
 export default function Routes () {
   return (
@@ -24,6 +25,9 @@ export default function Routes () {
         </Route>
         <Route exact path='/tweet/:id'>
           <Tweet />
+        </Route>
+        <Route exact path='/404'>
+          <NotFound />
         </Route>
       </Switch>
     </Router>

@@ -11,7 +11,7 @@ import './style.scss'
 function TweetPage ({ dataFetched, history }) {
   const [store] = useStore()
 
-  const { comments = [], ...rest } = store.tweet
+  const { comments = [] } = store.tweet
 
   if (!dataFetched) {
     return <div>Loading .....</div>
@@ -22,7 +22,7 @@ function TweetPage ({ dataFetched, history }) {
         Tweet
       </div>
       <div>
-        <Tweet {...rest} comments={comments} inFocus />
+        <Tweet {...store.tweet} inFocus />
       </div>
       <div>
         {

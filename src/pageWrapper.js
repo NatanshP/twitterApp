@@ -11,7 +11,8 @@ const pageWrapper = ({ getData = () => Promise.resolve(), scrollToTop }) => (Com
       location: {
         search: query
       },
-      match
+      match,
+      history
     } = props
     const [loadedData, setLoadedData] = useState()
     const [, dispatch] = useStore()
@@ -23,7 +24,12 @@ const pageWrapper = ({ getData = () => Promise.resolve(), scrollToTop }) => (Com
       payload: { ...location, ...match, query: qs.parse(query) }
     }), [query, JSON.stringify(match.params)])
     useEffect(() => {
-      dispatch(getData(1, { ...props, location: { ...location, query: qs.parse(query) } })).then(dta => setLoadedData(dta))
+      dispatch(getData(1, { ...props, location: { ...location, query: qs.parse(query) } })).then(dta => {
+        if (!dta) {
+          history.push('/404')
+        }
+        setLoadedData(dta)
+      })
     }, [query, JSON.stringify(query)])
 
     return <Comp {...props} dataFetched={loadedData} />
