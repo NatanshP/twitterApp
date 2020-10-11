@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import getSearchString from '../../helpers/getSearchString'
 import './style.scss'
 
 export default function Trend (props) {
@@ -8,7 +9,7 @@ export default function Trend (props) {
   } = props
   return (
     <div className='tweet-cont'>
-      <Link className='trend' to={`/search/${value}`}>{value}</Link>
+      <Link className='trend' to={getSearchString(value)}>{value}</Link>
     </div>
   )
 }

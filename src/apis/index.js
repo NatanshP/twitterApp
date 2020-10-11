@@ -151,12 +151,12 @@ export const mock = (data, delay = 300) => {
 
 export const getDataByPage = (data, delay) => (page, size = 10) => {
   let list
-  if ((page - 1) * 10 + size > data.length) {
+  if ((page - 1) * size + size > data.length) {
     list = []
   } else {
-    list = data.slice((page - 1) * 10, (page - 1) * 10 + size)
+    list = data.slice((page - 1) * size, (page - 1) * size + size)
   }
-  const lastIndex = (page - 1) * 10 + size
+  const lastIndex = (page - 1) * size + size
   let hasMore = true
   if (lastIndex >= data.length - 1) {
     hasMore = false
@@ -175,7 +175,7 @@ export const getDataByQueryString = (queryString, includeComments) => {
   }
   let clean = queryString.replace(/[,/%^;:=`~]/g, '')
   clean = clean.replace(/\s{2,}/g, ' ')
-  const searchStringArr = clean.split(' ')
+  const searchStringArr = clean.split(' ').filter((item, index) => clean.indexOf(item) === index)
   const fullStringPresent = (message) => message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase())
   const searchStringPresent = (message) => searchStringArr.some((queryString) => message && message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase()))
   const result = data.reduce((acc, dta) => {
@@ -274,7 +274,6 @@ export const typeHeadApi = (searchString) => {
 }
 
 export const searchApi = (queryString) => {
-  console.log('queryString', queryString)
   const dta = getDataByQueryString(decodeURIComponent(queryString))
   return getDataByPage(dta)
 }

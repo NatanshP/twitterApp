@@ -3,10 +3,11 @@ import React, { useState } from 'react'
 import Search from '../search'
 import { typeHeadApi } from '../../apis'
 import debounce from 'lodash/debounce'
+import getSearchString from '../../helpers/getSearchString'
 
-function SearchBar ({ history }) {
+function SearchBar ({ history, value }) {
   const [suggestionList, setSuggestionList] = useState([])
-  const [searchValue, setSearchValue] = useState('')
+  const [searchValue, setSearchValue] = useState(value || '')
 
   const onSearch = (value) => {
     setSearchValue(value)
@@ -18,7 +19,7 @@ function SearchBar ({ history }) {
   }
 
   const onListClick = (value) => {
-    history.push(`/search?q=${encodeURIComponent(value)}`)
+    history.push(getSearchString(value))
   }
 
   return (

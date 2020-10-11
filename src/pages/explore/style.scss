@@ -55,6 +55,9 @@
     }
     padding: 15px;
     cursor: pointer;
+    &.highlight {
+      color: rgb(27, 149, 224);
+    }
   }
  }
  .left-col {

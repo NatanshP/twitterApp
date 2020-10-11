@@ -6,6 +6,7 @@ import InfiniteList from '../../components/infiniteList'
 import Tweet from '../../components/tweet'
 import Layout from '../../components/layout'
 import SearchBar from '../../components/searchBar'
+import LeftColumn from '../../components/leftColumn'
 
 import './style.scss'
 
@@ -13,18 +14,25 @@ function SearchPage ({ dataFetched, history }) {
   const [store] = useStore()
 
   const {
-    list,
-    hasMorePages,
-    page
-  } = store.search
+    search: {
+      list,
+      hasMorePages,
+      page
+    },
+    route: {
+      query: {
+        q
+      } = {}
+    }
+  } = store
 
   if (!dataFetched) {
     return <div>Loading .....</div>
   }
-  const middleCol = () => (
+  const middleCol = (
     <>
       <div className='header-home'>
-        <SearchBar history={history} />
+        <SearchBar history={history} value={q} />
       </div>
       <InfiniteList
         list={list} hasMorePages={hasMorePages} page={page} component={Tweet}
@@ -33,27 +41,19 @@ function SearchPage ({ dataFetched, history }) {
     </>
   )
 
-  const rightCol = () => (
+  const rightCol = (
     <div className='right-col' />
-  )
-
-  const leftCol = () => (
-    <div className='left-col'>
-      <div className='icon-cont'>
-        <div className='icon-twitter' />
-      </div>
-    </div>
   )
 
   return (
     <div className='search'>
       <Layout
-        leftCol={leftCol()}
-        middleCol={middleCol()}
-        rightCol={rightCol()}
+        leftCol={<LeftColumn />}
+        middleCol={middleCol}
+        rightCol={rightCol}
       />
     </div>
   )
 }
 
-export default pageWrapper({ getData })(SearchPage)
+export default pageWrapper({ getData, scrollToTop: true })(SearchPage)

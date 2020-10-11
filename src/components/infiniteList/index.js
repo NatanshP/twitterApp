@@ -6,20 +6,15 @@ export default function InfiniteList (props) {
   const { list = [], component: Component, hasMorePages, loadMore, page } = props
   const [loading, setLoading] = useState(false)
   const [, dispatch] = useStore()
-  const loaderRef = useRef({})
+  const loaderRef = useRef()
   const handleObserver = useCallback((entities, observer) => {
-    if (entities && entities[0].isIntersecting && !loading) {
+    if (entities && entities[0].isIntersecting && !loading && hasMorePages) {
       setLoading(true)
-    }
-  }, [])
-  useEffect(() => {
-    if (hasMorePages) {
       dispatch(loadMore(page + 1)).then(() => { // pages in dependencies will trigger infinite reload
         setLoading(false)
       })
     }
-  }, [hasMorePages, loading, loadMore])
-
+  }, [loading, hasMorePages])
   useEffect(() => {
     const options = {
       root: null,
@@ -33,6 +28,7 @@ export default function InfiniteList (props) {
     if (loaderRef.current) {
       observer.observe(loaderRef.current)
     }
+    return () => loaderRef.current && observer.unobserve(loaderRef.current)
   }, [handleObserver])
 
   const content = list.map((item, index) => {

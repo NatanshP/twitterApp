@@ -6,36 +6,26 @@ const initialState = {
 }
 
 export const explore = (state = initialState, { type, payload }) => {
+  const getNewData = (key) => {
+    const { list, page, ...rest } = payload
+    return {
+      ...state,
+      [key]: page === 1 ? payload : {
+        list: [...(state[key].list || []), ...list],
+        page,
+        ...rest
+      }
+    }
+  }
   const reducers = {
     ADD_TWEETS_DATA () {
-      const { list, ...rest } = payload
-      return {
-        ...state,
-        tweets: {
-          list: [...(state.tweets.list || []), ...list],
-          ...rest
-        }
-      }
+      return getNewData('tweets')
     },
     ADD_TRENDS_DATA () {
-      const { list, ...rest } = payload
-      return {
-        ...state,
-        trends: {
-          list: [...(state.trends.list || []), ...list],
-          ...rest
-        }
-      }
+      return getNewData('trends')
     },
     ADD_PEOPLE_DATA () {
-      const { list, ...rest } = payload
-      return {
-        ...state,
-        people: {
-          list: [...(state.people.list || []), ...list],
-          ...rest
-        }
-      }
+      return getNewData('people')
     }
   }
   if (reducers[type]) {

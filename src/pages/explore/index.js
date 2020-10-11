@@ -7,7 +7,9 @@ import Tweet from '../../components/tweet'
 import People from '../../components/people'
 import Trend from '../../components/trend'
 import Layout from '../../components/layout'
+import LeftColumn from '../../components/leftColumn'
 import SearchBar from '../../components/searchBar'
+import cs from 'classnames'
 
 import './style.scss'
 
@@ -21,10 +23,11 @@ function Explore ({ dataFetched, history }) {
       page
     }
   } = store.explore
+  console.log(store)
 
   const getDataMap = { tweets: getData, trends: getTrendsData, people: getPeopleData }
   const ComponentMap = { tweets: Tweet, trends: Trend, people: People }
-  const fetchData = useCallback(getDataMap[currentView], [])
+  const fetchData = useCallback(getDataMap[currentView], [currentView])
   const Component = ComponentMap[currentView]
   useEffect(() => {
     dispatch(getTrendsData())
@@ -33,17 +36,18 @@ function Explore ({ dataFetched, history }) {
   if (!dataFetched) {
     return <div>Loading .....</div>
   }
-  const middleCol = () => (
+  const middleCol = (
     <>
       <div className='header-home'>Home</div>
       <InfiniteList
         list={list} hasMorePages={hasMorePages} page={page} component={Component}
         loadMore={fetchData}
+        key={currentView}
       />
     </>
   )
 
-  const rightCol = () => (
+  const rightCol = (
     <div className='right-col'>
       <div className='search-cont'>
         <SearchBar history={history} />
@@ -51,16 +55,8 @@ function Explore ({ dataFetched, history }) {
       <div className='window-switch-cont'>
         <div className='sw-cont-heading'>What's Happening</div>
         {['tweets', 'trends', 'people'].map((to) => (
-          <div key={to} className='window-switch' onClick={() => setCurrentView(to)}>{to.toUpperCase()}</div>
+          <div key={to} className={cs('window-switch', { highlight: currentView === to })} onClick={() => setCurrentView(to)}>{to.toUpperCase()}</div>
         ))}
-      </div>
-    </div>
-  )
-
-  const leftCol = () => (
-    <div className='left-col'>
-      <div className='icon-cont'>
-        <div className='icon-twitter' />
       </div>
     </div>
   )
@@ -68,12 +64,12 @@ function Explore ({ dataFetched, history }) {
   return (
     <div className='explore'>
       <Layout
-        leftCol={leftCol()}
-        middleCol={middleCol()}
-        rightCol={rightCol()}
+        leftCol={<LeftColumn />}
+        middleCol={middleCol}
+        rightCol={rightCol}
       />
     </div>
   )
 }
 
-export default pageWrapper({ getData })(Explore)
+export default pageWrapper({ getData, scrollToTop: true })(Explore)

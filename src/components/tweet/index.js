@@ -6,10 +6,11 @@ import { Link, useHistory } from 'react-router-dom'
 import useStore from '../../customHooks/useStore'
 import cs from 'classnames'
 import './style.scss'
+import getSearchString from '../../helpers/getSearchString'
 
 const insertProps = (to) => {
   return {
-    to: `/search?q=${encodeURIComponent(to)}`,
+    to: getSearchString(to),
     onClick: (e) => { e.stopPropagation() }
   }
 }
