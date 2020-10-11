@@ -1,5 +1,5 @@
 import { getTweetById } from '../apis'
-export const getData = (page = 1, extraData) => (dispatch, store) => {
+export const getData = (_, extraData) => (dispatch, store) => {
   const {
     match: {
       params: {

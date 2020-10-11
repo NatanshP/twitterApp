@@ -17,8 +17,8 @@ const pageWrapper = ({ getData = () => Promise.resolve(), scrollToTop }) => (Com
     const [loadedData, setLoadedData] = useState()
     const [, dispatch] = useStore()
     useEffect(() => {
-      scrollToTop && window.scroll(0, 0)
-    }, [])
+      scrollToTop && window.scrollTo(0, 0)
+    }, [query, JSON.stringify(match.params)])
     useEffect(() => dispatch({
       type: 'ADD_ROUTE_DATA',
       payload: { ...location, ...match, query: qs.parse(query) }
@@ -30,7 +30,7 @@ const pageWrapper = ({ getData = () => Promise.resolve(), scrollToTop }) => (Com
         }
         setLoadedData(dta)
       })
-    }, [query, JSON.stringify(query)])
+    }, [query, JSON.stringify(match.params)])
 
     return <Comp {...props} dataFetched={loadedData} />
   })

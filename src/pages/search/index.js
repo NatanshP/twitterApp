@@ -27,7 +27,7 @@ function SearchPage ({ dataFetched, history }) {
   } = store
 
   if (!dataFetched) {
-    return <div>Loading .....</div>
+    return null
   }
   const middleCol = (
     <>

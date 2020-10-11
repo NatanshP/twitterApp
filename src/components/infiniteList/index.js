@@ -19,7 +19,7 @@ export default function InfiniteList (props) {
     const options = {
       root: null,
       rootMargin: '0px',
-      threshold: 1.0
+      threshold: 0.5
     }
     let observer = new IntersectionObserver( // eslint-disable-line
       handleObserver,
@@ -31,16 +31,14 @@ export default function InfiniteList (props) {
     return () => loaderRef.current && observer.unobserve(loaderRef.current)
   }, [handleObserver])
 
-  const content = list.map((item, index) => {
-    return <Component key={item.id} {...item} />
-  })
-  if (hasMorePages) {
-    content.push(
-      <div ref={loaderRef} key='loader'>
-        <div>loading...</div>
-      </div>
-    )
-  }
-
-  return <div>{content}</div>
+  return (
+    <div className='inf-list'>
+      {list.map((item, index) => {
+        return <Component key={item.id} {...item} />
+      })}
+      {hasMorePages &&
+        <div ref={loaderRef} key='loader' className='loader-cont'>
+          <div className='loader' />
+        </div>}
+    </div>)
 }

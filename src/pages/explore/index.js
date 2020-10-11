@@ -38,7 +38,7 @@ function Explore ({ dataFetched, history }) {
     dispatch(getPeopleData())
   }, [])
   if (!dataFetched) {
-    return <div>Loading .....</div>
+    return null
   }
   const middleCol = (
     <>
@@ -46,7 +46,16 @@ function Explore ({ dataFetched, history }) {
         <div className='home-text'>Home</div>
         <div className='tab-switch-cont'>
           {['tweets', 'trends', 'people'].map((to) => (
-            <div key={to} className={cs('tab-switch', { highlight: currentView === to })} onClick={() => setCurrentView(to)}>{to.toUpperCase()}</div>
+            <div
+              key={to}
+              className={cs('tab-switch', { highlight: currentView === to })}
+              onClick={() => {
+                window.scrollTo(0, 0)
+                setCurrentView(to)
+              }}
+            >
+              {to.toUpperCase()}
+            </div>
           ))}
         </div>
       </div>
