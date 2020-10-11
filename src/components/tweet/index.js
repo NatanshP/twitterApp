@@ -2,7 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import abbreviateNumber from '../../helpers/convertNumber'
 import processMsg from '../../helpers/processMsg'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import useStore from '../../customHooks/useStore'
 import cs from 'classnames'
 import './style.scss'
 
@@ -27,37 +28,48 @@ export default function Tweet (props) {
     inFocus,
     id
   } = props
+  const history = useHistory()
+  const [store] = useStore()
+  const {
+    params: {
+      id: routeId
+    } = {}
+  } = store.route
   return (
-    <Link to={`/tweet/${id}`} className='tweet-wrapper'>
-      <div className={cs('tweet-cont', { 'in-focus': inFocus })}>
-        <div className='left-column'>
-          <div className='profile-pic'>
-            <img src={profilePic} />
-          </div>
-          {inFocus && (
-            <div className='name-cont'>
-              <div className='name'>{name}</div>
-              <div className='username'>{username}</div>
-            </div>)}
+    <div
+      className={cs('tweet-cont', { 'in-focus': inFocus })} onClick={() => {
+        if (parseInt(routeId, 10) !== id) {
+          history.push(`/tweet/${id}`)
+        }
+      }}
+    >
+      <div className='left-column'>
+        <div className='profile-pic'>
+          <img src={profilePic} alt='profile-pic' />
         </div>
-        <div className='right-column'>
-          {!inFocus && (
-            <div className='name-cont'>
-              <div className='name'>{name}</div>
-              <div className='username'>{username}</div>
-              <div className='time'>
-                {moment(new Date(timestamp).toISOString()).fromNow()}
-              </div>
-            </div>)}
-          <div className='msg-cont'>{processMsg(message, Link, insertProps)}</div>
-          <div className='action-buttons'>
-            <div className='comment btn'><i className='icon icon-chat' />{!!comments.length && abbreviateNumber(comments.length)}</div>
-            <div className='retweet btn'><i className='icon icon-retweet-1' />{!!retweets && abbreviateNumber(retweets)} </div>
-            <div className='like btn'><i className='icon icon-heart' /> {!!likes && abbreviateNumber(likes)} </div>
-            {!inFocus && <div />}
-          </div>
+        {inFocus && (
+          <div className='name-cont'>
+            <div className='name'>{name}</div>
+            <div className='username'>{username}</div>
+          </div>)}
+      </div>
+      <div className='right-column'>
+        {!inFocus && (
+          <div className='name-cont'>
+            <div className='name'>{name}</div>
+            <div className='username'>{username}</div>
+            <div className='time'>
+              {moment(new Date(timestamp).toISOString()).fromNow()}
+            </div>
+          </div>)}
+        <div className='msg-cont'>{processMsg(message, Link, insertProps)}</div>
+        <div className='action-buttons'>
+          <div className='comment btn'><i className='icon icon-chat' />{!!comments.length && abbreviateNumber(comments.length)}</div>
+          <div className='retweet btn'><i className='icon icon-retweet-1' />{!!retweets && abbreviateNumber(retweets)} </div>
+          <div className='like btn'><i className='icon icon-heart' /> {!!likes && abbreviateNumber(likes)} </div>
+          {!inFocus && <div />}
         </div>
       </div>
-    </Link>
+    </div>
   )
 }
