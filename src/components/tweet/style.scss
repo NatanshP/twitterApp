@@ -1,4 +1,7 @@
 
+.tweet-wrapper {
+  text-decoration: none;
+}
 .tweet-cont {
   display: flex;
   padding: 15px;
@@ -73,6 +76,35 @@
     margin-right: 4px;
     vertical-align: bottom;
     
+  }
+
+  &.in-focus {
+    flex-direction: column;
+    .left-column {
+      display: flex;
+      width: auto;
+    }
+    .name-cont {
+      flex-direction: column;
+      color: white;
+      margin-left: 10px;
+    }
+    .username {
+      margin-left: 0;
+    }
+    .right-column {
+      margin: 10px 0 0 0;
+    }
+    .msg-cont {
+      font-size: 23px;
+      line-height: 1.3125;
+    }
+    .action-buttons {
+      margin-top: 15px;
+      padding: 15px;
+      border-bottom: 1px solid #38444d;
+      border-top: 1px solid #38444d;
+    }
   }
 
 }

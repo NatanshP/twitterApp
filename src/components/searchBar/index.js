@@ -18,7 +18,7 @@ function SearchBar ({ history }) {
   }
 
   const onListClick = (value) => {
-    history.push(`/search?q=${value}`)
+    history.push(`/search?q=${encodeURIComponent(value)}`)
   }
 
   return (

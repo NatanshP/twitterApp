@@ -46,7 +46,7 @@ function SearchPage ({ dataFetched, history }) {
   )
 
   return (
-    <div className='explore'>
+    <div className='search'>
       <Layout
         leftCol={leftCol()}
         middleCol={middleCol()}

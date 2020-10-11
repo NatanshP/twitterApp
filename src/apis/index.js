@@ -226,6 +226,25 @@ export const getUniqueUsers = () => {
   return result
 }
 
+export const getTweetById = (id) => {
+  id = parseInt(id, 10)
+  console.log('id', id)
+  let result
+  for (let i = 0; i < data.length; i++) {
+    let localData = [data[i]]
+    if (data[i] && data[i].comments) {
+      localData = localData.concat(data[i].comments)
+    }
+    result = localData.find(({ id: tweetId }) => tweetId === id)
+    if (result) {
+      console.log('result', result)
+      return mock(result, 400)
+    }
+  }
+  console.log('result', result)
+  return mock(result, 400)
+}
+
 export const getTweetsData = getDataByPage(data)
 export const trendsApi = getDataByPage(getTrends().result)
 export const peopleApi = getDataByPage(getUniqueUsers())
@@ -247,6 +266,6 @@ export const typeHeadApi = (searchString) => {
 
 export const searchApi = (queryString) => {
   console.log('queryString', queryString)
-  const dta = getDataByQueryString(queryString)
+  const dta = getDataByQueryString(decodeURIComponent(queryString))
   return getDataByPage(dta)
 }

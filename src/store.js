@@ -2,12 +2,14 @@ import { createContext } from 'react'
 import { explore } from './reducers/explore'
 import { search } from './reducers/search'
 import { route } from './reducers/route'
+import { tweet } from './reducers/tweet'
 
 export function reducer (state, action = {}) { // combine reducers
   const reducerList = {
     explore,
     search,
-    route
+    route,
+    tweet
   }
   const finalState = {}
   Object.keys(reducerList).forEach(key => { finalState[key] = reducerList[key](state[key], action, state) })
