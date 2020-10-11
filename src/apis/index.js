@@ -170,6 +170,9 @@ export const getDataByPage = (data, delay) => (page, size = 10) => {
 }
 
 export const getDataByQueryString = (queryString, includeComments) => {
+  if (!queryString) {
+    return data
+  }
   let clean = queryString.replace(/[,/%^;:=`~]/g, '')
   clean = clean.replace(/\s{2,}/g, ' ')
   const searchStringArr = clean.split(' ')
@@ -186,7 +189,7 @@ export const getDataByQueryString = (queryString, includeComments) => {
     acc = acc.concat(comments.filter(({ message = '' }) => searchStringPresent(message)))
     return acc
   }, [])
-  return mock(result, 1000)
+  return result
 }
 
 export const getTrends = () => {
@@ -223,8 +226,6 @@ export const getUniqueUsers = () => {
   return result
 }
 
-console.log('unique users', getUniqueUsers())
-
 export const getTweetsData = getDataByPage(data)
 export const trendsApi = getDataByPage(getTrends().result)
 export const peopleApi = getDataByPage(getUniqueUsers())
@@ -242,4 +243,10 @@ export const typeHeadApi = (searchString) => {
     }
   }
   return result
+}
+
+export const searchApi = (queryString) => {
+  console.log('queryString', queryString)
+  const dta = getDataByQueryString(queryString)
+  return getDataByPage(dta)
 }

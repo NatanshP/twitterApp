@@ -6,6 +6,7 @@ import {
   // Link
 } from 'react-router-dom'
 import Explore from '../pages/explore/index'
+import Search from '../pages/search/index'
 import Tweet from '../pages/tweet'
 
 export default function Routes () {
@@ -17,6 +18,9 @@ export default function Routes () {
         </Route>
         <Route exact path='/explore'>
           <Explore />
+        </Route>
+        <Route exact path='/search'>
+          <Search />
         </Route>
         <Route exact path='/tweet/:id'>
           <Tweet />

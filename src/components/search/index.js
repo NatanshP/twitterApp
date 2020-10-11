@@ -5,11 +5,12 @@ import './style.scss'
 export default function Search (props) {
   const {
     placeholder = 'Search Twitter',
-    onChange,
-    value,
-    list,
+    onChange = () => {},
+    value = '',
+    list = [],
     onListClick
   } = props
+
   return (
     <div className='search-with-dd'>
       <div className='search-box-cont' tabIndex={1}>

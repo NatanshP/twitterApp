@@ -18,11 +18,11 @@ export default function Tweet (props) {
       profilePic,
       username
     },
-    message,
-    likes,
-    retweets,
+    message = '',
+    likes = 0,
+    retweets = 0,
     timestamp,
-    comments
+    comments = []
   } = props
   return (
     <div className='tweet-cont'>
@@ -41,9 +41,9 @@ export default function Tweet (props) {
         </div>
         <div className='msg-cont'>{processMsg(message, Link, insertProps)}</div>
         <div className='action-buttons'>
-          <div className='comment btn'><i className='icon icon-chat' />{abbreviateNumber(comments.length)}</div>
-          <div className='retweet btn'><i className='icon icon-retweet-1' />{abbreviateNumber(retweets)} </div>
-          <div className='like btn'><i className='icon icon-heart' /> {abbreviateNumber(likes)} </div>
+          <div className='comment btn'><i className='icon icon-chat' />{!!comments.length && abbreviateNumber(comments.length)}</div>
+          <div className='retweet btn'><i className='icon icon-retweet-1' />{!!retweets && abbreviateNumber(retweets)} </div>
+          <div className='like btn'><i className='icon icon-heart' /> {!!likes && abbreviateNumber(likes)} </div>
           <div />
         </div>
       </div>
