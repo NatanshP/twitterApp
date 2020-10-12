@@ -19,8 +19,7 @@ const {
   },
   random: {
     number: num
-  },
-  date
+  }
 } = faker
 
 const hashTagList = () => {
