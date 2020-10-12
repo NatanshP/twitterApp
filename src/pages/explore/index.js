@@ -44,6 +44,7 @@ function Explore ({ dataFetched }) {
       <div className='header-home'>
         <div className='home-text'>Home</div>
         <div className='tab-switch-cont'>
+          {/* tabs switches */}
           {['tweets', 'trends', 'people'].map((to) => (
             <div
               key={to}
@@ -66,6 +67,7 @@ function Explore ({ dataFetched }) {
     </>
   )
 
+  // right col with trends list and search bar
   const rightCol = (
     <div className='right-col'>
       <div className='search-cont'>
