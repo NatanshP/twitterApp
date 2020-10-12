@@ -10,7 +10,7 @@ import LeftColumn from '../../components/leftColumn'
 
 import './style.scss'
 
-function SearchPage ({ dataFetched, history }) {
+function SearchPage ({ dataFetched }) {
   const [store] = useStore()
 
   const {
@@ -32,7 +32,7 @@ function SearchPage ({ dataFetched, history }) {
   const middleCol = (
     <>
       <div className='header-home'>
-        <SearchBar history={history} value={q} />
+        <SearchBar value={q} />
       </div>
       <InfiniteList
         list={list} hasMorePages={hasMorePages} page={page} component={Tweet}

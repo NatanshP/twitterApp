@@ -14,7 +14,7 @@ import getSearchString from '../../helpers/getSearchString'
 import cs from 'classnames'
 import './style.scss'
 
-function Explore ({ dataFetched, history }) {
+function Explore ({ dataFetched }) {
   const [store, dispatch] = useStore()
   const [currentView, setCurrentView] = useState('tweets')
   const {
@@ -69,7 +69,7 @@ function Explore ({ dataFetched, history }) {
   const rightCol = (
     <div className='right-col'>
       <div className='search-cont'>
-        <SearchBar history={history} />
+        <SearchBar />
       </div>
       <div className='window-switch-cont'>
         <div className='sw-cont-heading'>What's Happening</div>

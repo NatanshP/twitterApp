@@ -4,10 +4,12 @@ import Search from '../search'
 import { typeHeadApi } from '../../apis'
 import debounce from 'lodash/debounce'
 import getSearchString from '../../helpers/getSearchString'
+import { useHistory } from 'react-router-dom'
 
-function SearchBar ({ history, value }) {
+function SearchBar ({ value }) {
   const [suggestionList, setSuggestionList] = useState([])
   const [searchValue, setSearchValue] = useState(value || '')
+  const history = useHistory()
 
   const onSearch = (value) => {
     setSearchValue(value)
