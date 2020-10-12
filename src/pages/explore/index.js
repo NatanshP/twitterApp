@@ -86,13 +86,12 @@ function Explore ({ dataFetched, history }) {
   )
 
   return (
-    <div className='explore'>
-      <Layout
-        leftCol={<LeftColumn />}
-        middleCol={middleCol}
-        rightCol={rightCol}
-      />
-    </div>
+    <Layout
+      leftCol={<LeftColumn />}
+      middleCol={middleCol}
+      rightCol={rightCol}
+      page='explore'
+    />
   )
 }
 

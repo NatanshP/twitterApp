@@ -1,13 +1,20 @@
 .page-cont {
   display: flex;
+  width: fit-content;
   margin: 0 auto;
+  min-height: 100%;
  .layout-left-column {
   width: 255px;
+  min-height: 100%;
  }
  .layout-right-column {
   width: 370px;
+  min-height: 100%;
  }
  .layout-middle-column { 
    width: 600px;
+   border-left: 1px solid #38444d;
+   border-right: 1px solid #38444d;
+   min-height: 100%;
  }
 }

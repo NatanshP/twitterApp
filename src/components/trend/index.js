@@ -8,7 +8,7 @@ export default function Trend (props) {
     value
   } = props
   return (
-    <div className='tweet-cont'>
+    <div className='trend-cont'>
       <Link className='trend' to={getSearchString(value)}>{value}</Link>
     </div>
   )

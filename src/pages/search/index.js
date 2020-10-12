@@ -46,13 +46,12 @@ function SearchPage ({ dataFetched, history }) {
   )
 
   return (
-    <div className='search'>
-      <Layout
-        leftCol={<LeftColumn />}
-        middleCol={middleCol}
-        rightCol={rightCol}
-      />
-    </div>
+    <Layout
+      leftCol={<LeftColumn />}
+      middleCol={middleCol}
+      rightCol={rightCol}
+      page='search'
+    />
   )
 }
 

@@ -41,13 +41,14 @@ function TweetPage ({ dataFetched, history }) {
   )
 
   return (
-    <div className='tweet'>
-      <Layout
-        leftCol={<LeftColumn />}
-        middleCol={middleCol}
-        rightCol={rightCol}
-      />
-    </div>
+
+    <Layout
+      leftCol={<LeftColumn />}
+      middleCol={middleCol}
+      rightCol={rightCol}
+      page='tweet'
+    />
+
   )
 }
 

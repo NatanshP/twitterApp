@@ -1,15 +1,5 @@
 import React from 'react'
-// import moment from 'moment'
-// import abbreviateNumber from '../../helpers/convertNumber'
-// import processMsg from '../../helpers/processMsg'
-// import { Link } from 'react-router-dom'
 import './style.scss'
-
-// const insertProps = (to) => {
-//   return {
-//     to: `/search/${to}`
-//   }
-// }
 
 export default function People (props) {
   const {
@@ -21,7 +11,7 @@ export default function People (props) {
     return null
   }
   return (
-    <div className='tweet-cont'>
+    <div className='people-cont'>
       <div className='left-column'>
         <div className='profile-pic'>
           <img src={profilePic} alt={username} />
