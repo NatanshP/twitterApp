@@ -9,6 +9,7 @@ const pageWrapper = ({ getData = () => Promise.resolve(), scrollToTop }) => (Com
     const {
       location,
       location: {
+        pathname,
         search: query
       },
       match,
@@ -18,19 +19,17 @@ const pageWrapper = ({ getData = () => Promise.resolve(), scrollToTop }) => (Com
     const [, dispatch] = useStore()
     useEffect(() => {
       scrollToTop && window.scrollTo(0, 0)
-    }, [query, JSON.stringify(match.params)])
-    useEffect(() => dispatch({
-      type: 'ADD_ROUTE_DATA',
-      payload: { ...location, ...match, query: qs.parse(query) }
-    }), [query, JSON.stringify(match.params)])
-    useEffect(() => {
+      dispatch({
+        type: 'ADD_ROUTE_DATA',
+        payload: { ...location, ...match, query: qs.parse(query) }
+      })
       dispatch(getData(1, { ...props, location: { ...location, query: qs.parse(query) } })).then(dta => {
         if (!dta) {
-          history.push('/404')
+          history.replace('/404')
         }
         setLoadedData(dta)
       })
-    }, [query, JSON.stringify(match.params)])
+    }, [query, pathname])
 
     return <Comp {...props} dataFetched={loadedData} />
   })
