@@ -27,7 +27,6 @@ function Explore ({ dataFetched, history }) {
       list: trendsList
     }
   } = store.explore
-  console.log(store)
 
   const getDataMap = { tweets: getData, trends: getTrendsData, people: getPeopleData }
   const ComponentMap = { tweets: Tweet, trends: Trend, people: People }
