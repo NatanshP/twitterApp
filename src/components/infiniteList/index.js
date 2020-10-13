@@ -12,6 +12,8 @@ export default function InfiniteList (props) {
       setLoading(true)
       dispatch(loadMore(page + 1)).then(() => { // pages in dependencies will trigger infinite reload
         setLoading(false)
+      }).catch(() => {
+        setLoading(false)
       })
     }
   }, [loading, hasMorePages])

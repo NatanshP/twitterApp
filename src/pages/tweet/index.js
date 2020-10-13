@@ -12,7 +12,6 @@ function TweetPage ({ dataFetched, history }) {
   const [store] = useStore()
 
   const { comments = [] } = store.tweet
-  console.log('new dta')
 
   if (!dataFetched) {
     return null

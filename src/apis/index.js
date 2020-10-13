@@ -121,13 +121,13 @@ const uniqueWords = () => {
   const words = new Set()
   const regex = new RegExp('[.,/#!$%^&*;:{}=-_`~()]') // punctuation marks
   data.forEach(({ message, comments }) => {
-    message.toLocaleLowerCase().split(' ').forEach((word) => { // split msg at space
+    message.toLowerCase().split(' ').forEach((word) => { // split msg at space
       if (regex.test(word[word.length - 1])) { // if last char is punctuation remove last char
         word = word.substring(0, word.length - 1)
       }
       words.add(word)
     })
-    comments.forEach(({ message }) => message.toLocaleLowerCase().split(' ').forEach((word) => { // same as above for comments
+    comments.forEach(({ message }) => message.toLowerCase().split(' ').forEach((word) => { // same as above for comments
       if (regex.test(word[word.length - 1])) {
         word = word.substring(0, word.length - 1)
       }
@@ -187,8 +187,8 @@ export const getDataByQueryString = (queryString, includeComments) => {
   let clean = queryString.replace(/[,/%^;:=`~]/g, '')
   clean = clean.replace(/\s{2,}/g, ' ')
   const searchStringArr = clean.split(' ').filter((item, index) => clean.indexOf(item) === index)
-  const fullStringPresent = (message) => message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase())
-  const searchStringPresent = (message) => searchStringArr.some((queryString) => message && message.toLocaleLowerCase().includes(queryString.toLocaleLowerCase()))
+  const fullStringPresent = (message) => message.toLowerCase().includes(queryString.toLowerCase())
+  const searchStringPresent = (message) => searchStringArr.some((queryString) => message && message.toLowerCase().includes(queryString.toLowerCase()))
   const result = data.reduce((acc, dta) => {
     const {
       message = '',
@@ -217,8 +217,8 @@ export const getTrends = () => {
   const trends = new Set([])
   const result = []
   const search = (message = '') => (message.match(/#\w+/g) || []).forEach(item => {
-    if (!trends.has(item)) {
-      trends.add(item)
+    if (!trends.has(item.toLowerCase())) {
+      trends.add(item.toLowerCase())
       result.push({ value: item, id: item })
     }
   })
@@ -257,7 +257,6 @@ export const getTweetById = (id) => {
     }
     result = localData.find(({ id: tweetId }) => tweetId === id)
     if (result) {
-      console.log('result', result)
       return mock(result, 400)
     }
   }
@@ -273,7 +272,7 @@ export const typeHeadApi = (searchString) => {
     return result
   }
   for (let i = 0; i < words.length; i++) {
-    if (words[i].includes(searchString)) {
+    if (words[i].includes(searchString.toLowerCase())) {
       result.push(words[i])
     }
     if (result.length >= 6) {
